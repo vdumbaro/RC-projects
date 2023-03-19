@@ -157,12 +157,12 @@ void sendValues(){
       uint8_t buf[5];
       uint8_t len = sizeof(buf);
   
-    if (nrf24.waitAvailableTimeout(500))
+    if (nrf24.waitAvailableTimeout(200))
     { 
       // Should be a reply message for us now   
       if (nrf24.recv(buf, &len))
       {
-        Serial.print("Gort a reply");
+        Serial.print("Got a reply");
       }
       else
       {
@@ -173,7 +173,6 @@ void sendValues(){
     {
       Serial.println("No reply ... retry");
       nrf24.send(send_msg, sizeof(send_msg));
-      delay(100);
       nrf24.waitPacketSent(); 
     }
     #endif
@@ -232,5 +231,5 @@ void loop()
     setMax(map(p1Value,0,1023,0,100),map(p2Value,0,1023,0,100));
     
     sendValues();
-    delay(300);
+    delay(100);
 }
